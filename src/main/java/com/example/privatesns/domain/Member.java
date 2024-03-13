@@ -29,6 +29,9 @@ public class Member extends BaseTimeEntity {
     @Column(name = "profile_picture")
     private String profilePicture;
 
+    @Column(nullable = false)
+    private String roles;
+
     @Column(length = 255)
     private String bio;
 }
