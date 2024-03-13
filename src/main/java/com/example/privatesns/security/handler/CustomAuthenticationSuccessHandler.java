@@ -1,7 +1,7 @@
 package com.example.privatesns.security.handler;
 
-import com.example.market.security.dto.TokenDto;
 import com.example.privatesns.security.component.JwtTokenProvider;
+import com.example.privatesns.security.dto.TokenDto;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

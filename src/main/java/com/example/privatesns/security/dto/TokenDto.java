@@ -1,4 +1,4 @@
-package com.example.market.security.dto;
+package com.example.privatesns.security.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

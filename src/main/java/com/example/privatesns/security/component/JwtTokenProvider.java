@@ -1,7 +1,7 @@
 package com.example.privatesns.security.component;
 
-import com.example.market.security.dto.TokenDto;
 import com.example.privatesns.exception.CustomException;
+import com.example.privatesns.security.dto.TokenDto;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
