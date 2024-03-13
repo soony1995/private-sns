@@ -1,0 +1,20 @@
+spring:
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # url: jdbc:mysql://127.0.0.1:3306/MARKET
+    url: jdbc:mysql://localhost:3306/snsdb?useSSL=false&allowPublicKeyRetrieval=true # for docker ?? ?? !
+    username: root
+    password: 1234
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: create
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+
+MYSQL_ROOT_PASSWORD: "1234"
