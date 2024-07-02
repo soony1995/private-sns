@@ -4,11 +4,11 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     # url: jdbc:mysql://127.0.0.1:3306/MARKET
-    url: jdbc:mysql://localhost:3306/snsdb?useSSL=false&allowPublicKeyRetrieval=true # for docker ?? ?? !
+    url: jdbc:mysql://localhost:43306/snsdb?useSSL=false&allowPublicKeyRetrieval=true # for docker ?? ?? !
     username: root
-    password: 1234
+    password: root
   jpa:
-    database-platform: org.hibernate.dialect.MySQL8Dialect
+    database-platform: org.hibernate.dialect.MySQLDialect
     hibernate:
       ddl-auto: update
     open-in-view: false
@@ -16,5 +16,3 @@ spring:
       hibernate:
         format_sql: true
         show_sql: true
-jwt:
-  secret: VlwEyVBsYt9V7zq57TejMnVUyzblYcfPQye08f7MGVA9XkHa
