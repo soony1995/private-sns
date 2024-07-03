@@ -18,8 +18,8 @@ public class Member extends BaseTimeEntity {
     @Column(name = "member_id")
     private long id;
 
-    @Column(nullable = false, unique = true, length = 50)
-    private String username;
+//    @Column(nullable = false, unique = true, length = 50)
+//    private String username;
 
     @Column(nullable = false, unique = true, length = 100)
     private String email;
@@ -40,7 +40,7 @@ public class Member extends BaseTimeEntity {
         return Member.builder()
                 .email(email)
                 .password(password)
-                .username("defaultUsername")
+//                .username("defaultUsername")
                 .roles("USER")
                 .profilePicture(null)
                 .bio(null)
