@@ -1,12 +1,15 @@
 spring:
+  data:
+    redis:
+      port: 36379
+      host: localhost
   jackson:
     property-naming-strategy: SNAKE_CASE
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    # url: jdbc:mysql://127.0.0.1:3306/MARKET
-    url: jdbc:mysql://localhost:43306/snsdb?useSSL=false&allowPublicKeyRetrieval=true # for docker ?? ?? !
-    username: root
-    password: root
+    url: jdbc:mysql://localhost:43306/snsdb?useSSL=false&allowPublicKeyRetrieval=true
+    username: soony
+    password: 1234
   jpa:
     database-platform: org.hibernate.dialect.MySQLDialect
     hibernate:
@@ -16,3 +19,6 @@ spring:
       hibernate:
         format_sql: true
         show_sql: true
+  session:
+    redis:
+      namespace: JSESSION
