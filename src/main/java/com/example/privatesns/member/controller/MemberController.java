@@ -1,14 +1,17 @@
 package com.example.privatesns.member.controller;
 
+import com.example.privatesns.global.utils.ResponseBuilder;
 import com.example.privatesns.member.domain.Member;
-import com.example.privatesns.member.dto.SignUpRequest;
+import com.example.privatesns.member.dto.Info;
+import com.example.privatesns.member.dto.SignUp;
+import com.example.privatesns.member.service.MemberInfoService;
 import com.example.privatesns.member.service.MemberSignUpService;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import static com.example.privatesns.global.utils.ResponseBuilder.buildOkResponse;
 
 @RestController
 @RequiredArgsConstructor
@@ -16,15 +19,16 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
 
     private final MemberSignUpService memberSignUpService;
+    private final MemberInfoService memberInfoService;
 
     @PostMapping("/register")
-    public ResponseEntity<Object> registerMember(@RequestBody SignUpRequest member) {
+    public ResponseEntity<Object> registerMember(@RequestBody SignUp.Request member) {
         Member registeredMember = memberSignUpService.registerMember(member);
         return ResponseEntity.status(HttpStatus.CREATED).body(registeredMember);
     }
 
-    @GetMapping("/get")
-    public String getSession(HttpSession session) {
-        return (String) session.getAttribute("email");
+    @GetMapping("/info")
+    public ResponseEntity<Info.Response> getCurrentMemberInfo() {
+        return buildOkResponse(memberInfoService.getCurrentMemberInfo());
     }
 }

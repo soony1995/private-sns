@@ -31,9 +31,7 @@ public class LoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
         session.setAttribute("email", email);
         memberRepository.findByEmail(email)
-                .ifPresent(user -> {
-                    memberRepository.saveAndFlush(user);
-                });
+                .ifPresent(memberRepository::saveAndFlush);
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         String jsonResponse = String.format("{\"sessionId\": \"%s\"}", sessionId);

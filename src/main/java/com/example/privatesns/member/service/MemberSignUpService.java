@@ -3,7 +3,7 @@ package com.example.privatesns.member.service;
 import com.example.privatesns.global.exception.CustomException;
 import com.example.privatesns.global.type.ErrCode;
 import com.example.privatesns.member.domain.Member;
-import com.example.privatesns.member.dto.SignUpRequest;
+import com.example.privatesns.member.dto.SignUp;
 import com.example.privatesns.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,11 +18,12 @@ public class MemberSignUpService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public Member registerMember(SignUpRequest req) {
+    public Member registerMember(SignUp.Request req) {
         if (memberRepository.existsByEmail(req.getEmail())) {
             throw new CustomException(ErrCode.MEMBER_ALREADY_REGISTERED);
         }
         String encryptedPassword = passwordEncoder.encode(req.getPassword());
-        return memberRepository.save(Member.fromSignUpRequest(req.email,encryptedPassword));
+        Member member = req.toEntity(encryptedPassword);
+        return memberRepository.save(member);
     }
 }
