@@ -1,9 +1,11 @@
 package com.example.privatesns.member.service;
 
-import com.example.privatesns.global.exception.CustomException;
-import com.example.privatesns.global.type.ErrCode;
+import com.example.privatesns.global.error.ErrorResponse;
+import com.example.privatesns.global.error.ErrorCode;
+import com.example.privatesns.member.dao.MemberFindDao;
 import com.example.privatesns.member.domain.Member;
-import com.example.privatesns.member.dto.SignUp;
+import com.example.privatesns.member.dto.Register;
+import com.example.privatesns.member.exception.EmailDuplicateException;
 import com.example.privatesns.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,12 +20,18 @@ public class MemberSignUpService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public Member registerMember(SignUp.Request req) {
+    public Register.Response registerMember(Register.Request req) {
+
         if (memberRepository.existsByEmail(req.getEmail())) {
-            throw new CustomException(ErrCode.MEMBER_ALREADY_REGISTERED);
+            throw new EmailDuplicateException(req.getEmail());
         }
+
+        // need to validate password
+
         String encryptedPassword = passwordEncoder.encode(req.getPassword());
         Member member = req.toEntity(encryptedPassword);
-        return memberRepository.save(member);
+        memberRepository.save(member);
+
+        return new Register.Response(member.getId(), member.getUsername(), member.getEmail());
     }
 }

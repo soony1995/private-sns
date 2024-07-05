@@ -1,8 +1,11 @@
 package com.example.privatesns.auth.service;
 
 
+import ch.qos.logback.core.spi.ErrorCodes;
 import com.example.privatesns.auth.domain.CustomUserDetails;
-import com.example.privatesns.global.exception.CustomException;
+import com.example.privatesns.global.error.ErrorCode;
+import com.example.privatesns.global.error.ErrorResponse;
+import com.example.privatesns.member.dao.MemberFindDao;
 import com.example.privatesns.member.domain.Member;
 import com.example.privatesns.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -11,19 +14,18 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import static com.example.privatesns.global.type.ErrCode.MEMBER_NOT_EXIST;
+import static com.example.privatesns.global.error.ErrorCode.MEMBER_NOT_EXIST;
 
 
 @Service
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final MemberRepository memberRepository;
+    private final MemberFindDao memberFindDao;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Member member = memberRepository.findByEmail(username).orElseThrow(
-                () -> new CustomException(MEMBER_NOT_EXIST));
+    public UserDetails loadUserByUsername(String username) {
+        Member member = memberFindDao.findByEmail(username);
         return new CustomUserDetails(member);
     }
 }
